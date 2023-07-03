@@ -1,0 +1,38 @@
+GET http://localhost:5000/artist
+
+
+###
+GET http://localhost:5000/artist/1
+
+
+###
+POST  http://localhost:5000/artist
+Content-Type: application/json
+
+
+{
+    "ArtistName" : "rizal",
+    "PackageName" : "ddddd",
+    "ImageURL"  : "sdadasds",
+    "ReleaseDate" : "1999, 6, 20",
+    "SampleURL" : "dadadsds",
+    "Price" : "20k"
+}
+
+###
+PATCH   http://localhost:5000/artist/1
+Content-Type: application/json
+
+
+{
+    "ArtistName" : "dimas",
+    "PackageName" : "sssss",
+    "ImageURL"  : "sdadasds",
+    "ReleaseDate" : "1999, 7, 20",
+    "SampleURL" : "dadadsds",
+    "Price" : "50k"
+}
+
+
+###
+DELETE  http://localhost:5000/artist/2
