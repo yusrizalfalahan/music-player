@@ -12,7 +12,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -22,12 +21,9 @@
     "express-flash": "^0.0.2",
     "express-session": "^1.17.3",
     "jquery": "^3.7.0",
-    "mongoose": "^7.3.1",
     "mysql2": "^3.4.2",
-    "node-fetch": "^2.6.12",
     "nodemon": "^2.0.22",
-    "passport": "^0.6.0",
-    "passport-local": "^1.0.0",
+    "path": "^0.12.7",
     "sequelize": "^6.32.1"
   }
 }

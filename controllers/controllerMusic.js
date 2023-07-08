@@ -4,9 +4,6 @@ import Music from "../models/musicModel.js";
 export const getMusic = async(req, res) =>{
     try {
         const response = await Music.findAll();
-        musicModel.getMusic((result) =>{
-            res.render('index', {data: res})
-        })
         res.status(200).json(response);
     } catch (error) {
         console.log(error.message);
