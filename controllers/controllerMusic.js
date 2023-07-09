@@ -26,74 +26,68 @@ export const showCreate = async (req, res) => {
 
 export const createMusic = async (req, res) => {
     try {
-        const {
-            ArtistName,
-            PackageName,
-            ImageURL,
-            ReleaseDate,
-            SampleURL,
-            Price
-        } = req.body;
-        const musics = await Music.create({
-            ArtistName,
-            PackageName,
-            ImageURL,
-            ReleaseDate,
-            SampleURL,
-            Price
-        });
-        res.redirect('/')
+        const create = {
+            ArtistName: req.body.ArtistName,
+            PackageName: req.body.PackageName,
+            ImageURL: req.body.ImageURL,
+            ReleaseDate: req.body.ReleaseDate,
+            SampleURL: req.body.SampleURL,
+            Price: req.body.Price
+        }
+        console.log(create)
+        await Music.create(create).then(() => {
+
+            res.redirect('/')
+        })
 
     } catch (error) {
-        console.log(error.message);
+        res.status(201).json({
+            error: error.message
+        });
     }
 }
 
 
-export const showUpdate = async (req, res) => {
-    try {
-        const {
-            id
-        } = req.params;
-        const musics = await Music.findByPk(id);
+export const showId = async (req, res) => {
 
-        res.render('update', {
-            data: musics,
+    await Music.findByPk(req.params.id).then(music => {
+        if (!music) {
+            res.render('update', {
+                data: id
+            })
+            return res.status(404).send({
+                message: 'Music Not Found'
+            })
+        }
+    })
 
-        });
-    } catch (error) {
-        console.error(error);
-    }
 }
 
 export const updateMusic = async (req, res) => {
     try {
-        const {
-            id
-        } = req.params;
-        const {
-            ArtistName,
-            PackageName,
-            ImageURL,
-            ReleaseDate,
-            SampleURL,
-            Price
-        } = req.body;
         await Music.update({
-            ArtistName,
-            PackageName,
-            ImageURL,
-            ReleaseDate,
-            SampleURL,
-            Price
-        }, {
             where: {
-                id
+                id: req.params.id
             }
-        });
-        res.redirect('/')
+        })
+        const update = {
+            ArtistName: req.body.ArtistName || updateMusic.ArtistName,
+            PackageName: req.body.PackageName || updateMusic.PackageName,
+            ImageURL: req.body.ImageURL || updateMusic.ImageURL,
+            ReleaseDate: req.body.ReleaseDate || updateMusic.ReleaseDate,
+            SampleURL: req.body.SampleURL || updateMusic.SampleURL,
+            Price: req.body.Price || updateMusic.Price
+        }
+        console.log(update)
+        await Music.update(update).then(() => {
+
+                res.redirect('/')
+            })
+            .then(() => res.status(200).send(update))
     } catch (error) {
-        console.log(error);
+        res.status(202).json({
+            error: error.message
+        })
     }
 }
 

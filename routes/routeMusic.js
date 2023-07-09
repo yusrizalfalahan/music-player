@@ -3,7 +3,7 @@ import {
     getMusic,
     showCreate,
     createMusic,
-    showUpdate,
+    showId,
     updateMusic,
     deleteMusic,
 
@@ -16,10 +16,10 @@ const router = express.Router();
 // form
 router.get('/', getMusic)
 router.get('/create', showCreate);
-router.get('/:id/update', showUpdate);
+router.get('/:id/update', showId);
 //initial
 router.post('/create', createMusic);
-router.patch('/:id', updateMusic);
-router.delete('/:id', deleteMusic);
+router.patch('/:id/update', updateMusic);
+router.delete('/:id/delete', deleteMusic);
 
 export default router;
