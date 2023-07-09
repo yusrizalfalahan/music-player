@@ -1,21 +1,25 @@
 import express from "express";
 import {
-    getMusic, 
-    getMusicById,
+    getMusic,
+    showCreate,
     createMusic,
+    showUpdate,
     updateMusic,
-    deleteMusic
+    deleteMusic,
+
 } from "../controllers/controllerMusic.js";
 
 const router = express.Router();
 
+
+
+// form
+router.get('/', getMusic)
+router.get('/create', showCreate);
+router.get('/:id/update', showUpdate);
 //initial
-router.get('/', function(req, res, next) {
-    res.render('index', {title: "Music Player"})
-})
-router.get('/artist/:id', getMusicById);
-router.post('/artist', createMusic);
-router.patch('/artist/:id', updateMusic);
-router.delete('/artist/:id', deleteMusic);
+router.post('/create', createMusic);
+router.patch('/:id', updateMusic);
+router.delete('/:id', deleteMusic);
 
 export default router;
