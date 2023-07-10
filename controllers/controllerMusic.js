@@ -1,8 +1,6 @@
 import Music from "../models/musicModel.js";
 
-
-
-
+// index all data
 export const getMusic = async (req, res) => {
     try {
         const musics = await Music.findAll();
@@ -15,7 +13,7 @@ export const getMusic = async (req, res) => {
     }
 }
 
-
+// form create
 export const showCreate = async (req, res) => {
 
     res.render('create', {
@@ -24,6 +22,7 @@ export const showCreate = async (req, res) => {
 
 }
 
+// create
 export const createMusic = async (req, res) => {
     try {
         const create = {
@@ -47,60 +46,66 @@ export const createMusic = async (req, res) => {
     }
 }
 
-
+// form update
 export const showId = async (req, res) => {
+    try {
+        const musicId = await Music.findByPk(req.params.id)
+        res.render('update', {
+            musicId
+        })
+    } catch (err) {
+        console.error(err)
+        res.status(404).send('Music Not Found')
 
-    await Music.findByPk(req.params.id).then(music => {
-        if (!music) {
-            res.render('update', {
-                data: id
-            })
-            return res.status(404).send({
-                message: 'Music Not Found'
-            })
-        }
-    })
-
+    }
 }
-
+//update
 export const updateMusic = async (req, res) => {
     try {
+        const {
+            ArtistName,
+            PackageName,
+            ImageURL,
+            ReleaseDate,
+            SampleURL,
+            Price
+        } = req.body;
+
         await Music.update({
+            ArtistName,
+            PackageName,
+            ImageURL,
+            ReleaseDate,
+            SampleURL,
+            Price
+        }, {
             where: {
                 id: req.params.id
             }
-        })
-        const update = {
-            ArtistName: req.body.ArtistName || updateMusic.ArtistName,
-            PackageName: req.body.PackageName || updateMusic.PackageName,
-            ImageURL: req.body.ImageURL || updateMusic.ImageURL,
-            ReleaseDate: req.body.ReleaseDate || updateMusic.ReleaseDate,
-            SampleURL: req.body.SampleURL || updateMusic.SampleURL,
-            Price: req.body.Price || updateMusic.Price
-        }
-        console.log(update)
-        await Music.update(update).then(() => {
+        }).then(() => {
 
-                res.redirect('/')
-            })
-            .then(() => res.status(200).send(update))
-    } catch (error) {
-        res.status(202).json({
-            error: error.message
+            res.redirect('/')
+
         })
+
+    } catch (err) {
+        console.error(err)
+        res.status(202).send('Not Update Data')
     }
 }
 
+//delete
 export const deleteMusic = async (req, res) => {
     try {
         await Music.destroy({
             where: {
                 id: req.params.id
             }
-        });
-        res.status(200).json({
-            msg: "Music Deleted"
-        });
+        }).then(() => {
+
+            res.redirect('/')
+        })
+
     } catch (error) {
         console.log(error.message);
     }

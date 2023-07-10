@@ -17,9 +17,10 @@ const router = express.Router();
 router.get('/', getMusic)
 router.get('/create', showCreate);
 router.get('/:id/update', showId);
+
 //initial
 router.post('/create', createMusic);
-router.patch('/:id/update', updateMusic);
-router.delete('/:id/delete', deleteMusic);
+router.post('/update/:id', updateMusic);
+router.get('/:id/delete', deleteMusic);
 
 export default router;
