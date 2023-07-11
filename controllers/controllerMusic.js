@@ -1,4 +1,5 @@
 import Music from "../models/musicModel.js";
+import uploadFile from "../middleware/upload.js"
 
 // index all data
 export const getMusic = async (req, res) => {
@@ -103,10 +104,51 @@ export const deleteMusic = async (req, res) => {
             }
         }).then(() => {
 
-            res.redirect('/')
         })
+        res.redirect('/')
 
     } catch (error) {
         console.log(error.message);
     }
 }
+
+//upload music
+export const uploadMusic = async (req, res) => {
+    try {
+        await uploadFile(req, res)
+        if (req.file == undefined) {
+            return res.status(400).send({
+                message: "Please upload a file"
+            })
+        }
+        res.status(200).send({
+            message: " Uploades the file succesfully: " + req.file.originalname,
+
+        })
+    } catch (err) {
+        res.status(500).send({
+            message: `Could not upload the file: ${req.file.originalname}. ${err}`,
+        })
+    }
+}
+
+// const getListFiles = (req, res) => {
+//     const directoryPath = __basedir + "/uploads"
+
+//     fs.readdir(directoryPath, function (err, files) {
+//         if (err) {
+//             res.status(500).send({
+//                 message: "Unable to scan files"
+//             })
+//         }
+//         let fileInfos = []
+
+//         files.forEach((file) => {
+//             fileInfos.push({
+//                 name: file,
+//                 url: baseUrl + file,
+//             })
+//         })
+//         res.status(200).send(fileInfos)
+//     })
+// }

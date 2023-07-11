@@ -1,10 +1,12 @@
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
-import path from "path";
-import {
-    fileURLToPath
-} from 'url';
+
+
+
+
+
+
 import routeMusic from "./routes/routeMusic.js";
 
 
@@ -16,8 +18,14 @@ app.use(bodyParser.urlencoded({
 app.get(bodyParser.json())
 
 
+
+
+
 app.set("view engine", "ejs")
 app.set("views", "views")
+
+
+
 
 app.use(cors());
 app.use(express.json());
