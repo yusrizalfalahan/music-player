@@ -67,20 +67,27 @@ export const updateMusic = async (req, res) => {
         const {
             ArtistName,
             PackageName,
-            ImageURL,
             ReleaseDate,
-            SampleURL,
             Price
         } = req.body;
 
-        await Music.update({
+        let data = {
             ArtistName,
             PackageName,
-            ImageURL,
             ReleaseDate,
-            SampleURL,
             Price
-        }, {
+        }
+
+        console.log("file : ", req.files)
+
+        if (req.files.FileImage && req.files.FileImage.length > 0) {
+            data["ImageURL"] = req.files.FileImage[0].filename
+        }
+        if (req.files.File && req.files.File.length > 0) {
+            data["SampleURL"] = req.files.File[0].filename
+        }
+        console.log(data)
+        await Music.update(data, {
             where: {
                 id: req.params.id
             }

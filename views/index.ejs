@@ -20,7 +20,7 @@
           <th scope="col">No</th>
           <th scope="col">ArtistName</th>
           <th scope="col">PackageName </th>
-          <th scope="col">ImageURL</th>
+
           <th scope="col">ReleaseDate</th>
           <th scope="col">Audio</th>
           <th scope="col">Price</th>
@@ -33,8 +33,9 @@
         <tr>
           <th scope="row"><%= index + 1 %> </th>
           <th scope="row"><%= data.ArtistName %> </th>
-          <th scope="row"><%= data.PackageName %> </th>
-          <th scope="row" width="10%"> <img src="/uploads/<%= data.ImageURL %>" width="50%"> </th>
+          <th scope="row" width="10%"><%= data.PackageName %><br>
+            <img src=" /uploads/<%= data.ImageURL %>" width="50%">
+          </th>
           <th scope="row"><%= data.ReleaseDate %> </th>
           <th scope="row">
             <audio controls>

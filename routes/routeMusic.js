@@ -54,7 +54,13 @@ router.post('/create', upload.fields([{
     name: 'FileImage',
     maxCount: 1
 }]), createMusic);
-router.post('/update/:id', updateMusic);
+router.post('/update/:id', upload.fields([{
+    name: 'File',
+    maxCount: 1
+}, {
+    name: 'FileImage',
+    maxCount: 1
+}]), updateMusic);
 router.get('/:id/delete', deleteMusic);
 
 // upload file
