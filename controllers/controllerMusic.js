@@ -1,5 +1,5 @@
 import Music from "../models/musicModel.js";
-import uploadFile from "../middleware/upload.js"
+
 
 // index all data
 export const getMusic = async (req, res) => {
@@ -26,12 +26,13 @@ export const showCreate = async (req, res) => {
 // create
 export const createMusic = async (req, res) => {
     try {
+        console.log(req.files)
         const create = {
             ArtistName: req.body.ArtistName,
             PackageName: req.body.PackageName,
             ImageURL: req.body.ImageURL,
             ReleaseDate: req.body.ReleaseDate,
-            SampleURL: req.body.SampleURL,
+            SampleURL: req.files[0].filename,
             Price: req.body.Price
         }
         console.log(create)
@@ -112,25 +113,26 @@ export const deleteMusic = async (req, res) => {
     }
 }
 
-//upload music
-export const uploadMusic = async (req, res) => {
-    try {
-        await uploadFile(req, res)
-        if (req.file == undefined) {
-            return res.status(400).send({
-                message: "Please upload a file"
-            })
-        }
-        res.status(200).send({
-            message: " Uploades the file succesfully: " + req.file.originalname,
+// //upload music
+// export const uploadMusic = async (req, res) => {
+//     try {
 
-        })
-    } catch (err) {
-        res.status(500).send({
-            message: `Could not upload the file: ${req.file.originalname}. ${err}`,
-        })
-    }
-}
+//         await uploadFile(req, res)
+//         if (req.file == undefined) {
+//             return res.status(400).send({
+//                 message: "Please upload a file"
+//             })
+//         }
+//         res.status(200).send({
+//             message: " Uploades the file succesfully: " + req.file.originalname,
+
+//         })
+//     } catch (err) {
+//         res.status(500).send({
+//             message: `Could not upload the file: ${req.file.originalname}. ${err}`,
+//         })
+//     }
+// }
 
 // const getListFiles = (req, res) => {
 //     const directoryPath = __basedir + "/uploads"

@@ -3,10 +3,6 @@ import cors from "cors";
 import bodyParser from "body-parser";
 
 
-
-
-
-
 import routeMusic from "./routes/routeMusic.js";
 
 
@@ -19,7 +15,8 @@ app.get(bodyParser.json())
 
 
 
-
+app.use(express.static('/uploads'));
+app.use('/uploads', express.static('uploads'));
 
 app.set("view engine", "ejs")
 app.set("views", "views")

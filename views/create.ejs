@@ -19,7 +19,7 @@
   <div class="container">
 
 
-    <form action="/create" method="post">
+    <form action="/create" method="post" enctype="multipart/form-data">
       <h3>Tambah Music Baru</h3>
       <div class="row col-sm-6 mb-3">
         <label for="ArtistName" class="col-sm-2 col-form-label">ArtistName</label>
@@ -46,13 +46,13 @@
 
         </div>
       </div>
-
       <div class="row col-sm-6 mb-3">
         <label for="SampleURL" class="col-sm-2 col-form-label">SampleURL</label>
         <div class="col-sm-10">
-          <input type="file" id="SampleURL" name="SampleURL" class="form-control">
+          <input type="file" id="File" name="File" class="form-control">
         </div>
       </div>
+
       <div class="row col-sm-6 mb-3">
         <label for="Price" class="col-sm-2 col-form-label">Price</label>
         <div class="col-sm-10">

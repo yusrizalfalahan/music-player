@@ -1,21 +1,33 @@
-import util from "util"
 import multer from "multer"
 
-let storage = multer.diskStorage({
+
+
+const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, __basedir + "/uploads")
+        cb(null, "uploads")
     },
     filename: (req, file, cb) => {
-        console.log(file.originalname)
-        cb(null, file.originalname)
-    },
+        const name = `${Date.now()}-${file.originalname}`
+        req.body.SampleURL = name
+        cb(null, name)
+    }
+
+
+
 })
+const fileFilter = (req, file, cb) => {
+    if (file.mimetype === mp3) {
 
-let uploadFile = multer({
+        cb(null, true)
+    } else {
+        cb(null, false)
+    }
+}
+
+
+const uploadFile = multer({
     storage: storage,
+    fileFilter: fileFilter
 
-}).single("file")
-
-let uploadFileMiddleware = util.promisify(uploadFile)
-
-export default uploadFileMiddleware;
+}).single('mp3');
+export default uploadFile;

@@ -6,13 +6,36 @@ import {
     showId,
     updateMusic,
     deleteMusic,
-    uploadMusic,
+
 
 } from "../controllers/controllerMusic.js";
+import multer from "multer";
+const fileFilter = (req, file, cb) => {
+    console.log(file.mimetype)
+    if (file.mimetype === "audio/mpeg") {
+        cb(null, true)
+    } else {
+        cb(null, false)
+    }
+}
 
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, process.cwd() + "\\uploads");
+    },
+    filename: (req, file, cb) => {
+        cb(null, `${Date.now()}-ryzal-${file.originalname}`);
+    },
+});
+
+const upload = multer({
+    //dest: process.cwd() + "\\uploads",
+    storage,
+    fileFilter
+});
 const router = express.Router();
 
-
+console.log(process.cwd() + "\\uploads")
 
 // form
 router.get('/', getMusic)
@@ -24,10 +47,11 @@ router.get('/:id/update', showId);
 // })
 
 //initial
-router.post('/create', createMusic);
+router.post('/create', upload.array("File"), createMusic);
 router.post('/update/:id', updateMusic);
 router.get('/:id/delete', deleteMusic);
 
 // upload file
-router.post('/upload', uploadMusic)
+
+
 export default router;
