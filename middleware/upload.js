@@ -12,9 +12,20 @@ const storage = multer.diskStorage({
         cb(null, name)
     }
 
+})
 
+const image = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "images")
+    },
+    filename: (req, file, cb) => {
+        const name = `${Date.now()}-${file.originalname}`
+        req.body.fileimage = name
+        cb(null, name)
+    }
 
 })
+
 const fileFilter = (req, file, cb) => {
     if (file.mimetype === mp3) {
 

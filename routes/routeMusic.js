@@ -12,7 +12,7 @@ import {
 import multer from "multer";
 const fileFilter = (req, file, cb) => {
     console.log(file.mimetype)
-    if (file.mimetype === "audio/mpeg") {
+    if (file.mimetype === "audio/mpeg" || file.mimetype.startsWith("image")) {
         cb(null, true)
     } else {
         cb(null, false)
@@ -33,21 +33,27 @@ const upload = multer({
     storage,
     fileFilter
 });
+
 const router = express.Router();
 
 console.log(process.cwd() + "\\uploads")
+console.log(process.cwd() + "\\images")
 
 // form
 router.get('/', getMusic)
 router.get('/create', showCreate);
 router.get('/:id/update', showId);
-// upload
-// app.post('/profile', upload.none(), function (req, res, next) {
-//     // req.body contains the text fields
-// })
+
 
 //initial
-router.post('/create', upload.array("File"), createMusic);
+//router.post('/create', upload.array("File"), createMusic);
+router.post('/create', upload.fields([{
+    name: 'File',
+    maxCount: 1
+}, {
+    name: 'FileImage',
+    maxCount: 1
+}]), createMusic);
 router.post('/update/:id', updateMusic);
 router.get('/:id/delete', deleteMusic);
 

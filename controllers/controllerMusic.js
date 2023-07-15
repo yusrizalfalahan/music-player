@@ -26,13 +26,13 @@ export const showCreate = async (req, res) => {
 // create
 export const createMusic = async (req, res) => {
     try {
-        console.log(req.files)
+        console.log(req.files.File[0])
         const create = {
             ArtistName: req.body.ArtistName,
             PackageName: req.body.PackageName,
-            ImageURL: req.body.ImageURL,
+            ImageURL: req.files.FileImage[0].filename,
             ReleaseDate: req.body.ReleaseDate,
-            SampleURL: req.files[0].filename,
+            SampleURL: req.files.File[0].filename,
             Price: req.body.Price
         }
         console.log(create)

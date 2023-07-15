@@ -17,6 +17,8 @@ app.get(bodyParser.json())
 
 app.use(express.static('/uploads'));
 app.use('/uploads', express.static('uploads'));
+app.use(express.static('/images'));
+app.use('/images', express.static('images'));
 
 app.set("view engine", "ejs")
 app.set("views", "views")
